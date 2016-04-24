@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Background</title>
+		<style>
+			body {
+				margin: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<canvas></canvas>
+		<script>
+			var canvas = document.querySelector("canvas");
+			var ctx = canvas.getContext("2d");
+
+			canvas.width = window.innerWidth;
+			canvas.height = window.innerHeight;
+
+			var W = canvas.width;
+			var H = canvas.height;
+
+			var bgcolor = "#000000";
+
+			function Particle(){
+				this.x = Math.random()*W;
+				this.y = Math.random()*H;
+				this.vx = Math.random()*1;
+				this.vy = Math.random()*5;
+				this.particleSize = Math.random()*5;
+				this.radius = this.particleSize/2;
+				this.color = "#ffffff";
+				this.draw = function(){
+					ctx.beginPath();
+					ctx.fillStyle = this.color;
+					ctx.arc(this.x, this.y, this.radius, 0, Math.PI*2, false);
+					ctx.fill();
+
+					this.x += this.vx;
+					this.y += this.vy;
+				}
+			}
+			var particles = [];
+
+			setInterval(function(){
+
+				ctx.fillStyle = bgcolor;
+				ctx.fillRect(0, 0, W, H);
+				particles.push(new Particle());
+				for (var i = 0; i < particles.length; i++){
+					particles[i].draw();
+				}
+			}, 60)
+
+
+		</script>
+	</body>
+</html>
